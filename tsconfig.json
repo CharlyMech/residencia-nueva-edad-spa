@@ -1,5 +1,43 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "types": [
+      "@types/react",
+      "@types/react-dom"
+    ],
+    "moduleResolution": "bundler",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@layouts/*": [
+        "./src/layouts/*"
+      ],
+      "@stores/*": [
+        "./src/stores/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@types/*": [
+        "./src/types/*"
+      ],
+      "@data/*": [
+        "./src/data/*"
+      ],
+      "@i18n/*": [
+        "./src/i18n/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "src/env.d.ts"
+  ]
 }

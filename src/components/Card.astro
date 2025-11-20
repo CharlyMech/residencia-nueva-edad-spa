@@ -1,0 +1,88 @@
+---
+interface Props {
+  /**
+   * Shadow intensity - uses custom CSS variables from your design system
+   * @default 'soft'
+   */
+  shadow?: 'none' | 'soft' | 'medium' | 'large';
+  
+  /**
+   * Enable hover animation (shadow elevation on hover)
+   * @default true
+   */
+  hoverable?: boolean;
+  
+  /**
+   * Background color - accepts any Tailwind color class
+   * @default 'bg-white dark:bg-neutral-800'
+   */
+  bgColor?: string;
+  
+  /**
+   * Border radius - accepts any Tailwind rounded class
+   * @default 'rounded-2xl'
+   */
+  rounded?: string;
+  
+  /**
+   * Padding - accepts any Tailwind padding class
+   * @default 'p-6'
+   */
+  padding?: string;
+  
+  /**
+   * Additional CSS classes
+   */
+  class?: string;
+}
+
+const {
+  shadow = 'soft',
+  hoverable = true,
+  bgColor = 'bg-white dark:bg-neutral-800',
+  rounded = 'rounded-2xl',
+  padding = 'p-6',
+  class: className = '',
+} = Astro.props;
+
+// Map shadow prop to CSS classes
+const shadowClasses = {
+  none: '',
+  soft: 'shadow-soft',
+  medium: 'shadow-medium',
+  large: 'shadow-large',
+};
+
+// Hover effect classes
+const hoverClasses = hoverable 
+  ? 'transition-all duration-300 hover:shadow-medium hover:scale-105' 
+  : '';
+---
+
+<div
+  class={`
+    ${bgColor}
+    ${rounded}
+    ${padding}
+    ${shadowClasses[shadow]}
+    ${hoverClasses}
+    ${className}
+  `.trim().replace(/\s+/g, ' ')}
+>
+  <slot />
+</div>
+
+<style>
+  /* Using your custom CSS variables for shadows */
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+  
+  .shadow-large {
+    box-shadow: var(--shadow-large);
+  }
+</style>

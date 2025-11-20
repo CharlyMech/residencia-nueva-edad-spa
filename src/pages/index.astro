@@ -1,16 +1,302 @@
 ---
+import Layout from '@/layouts/Layout.astro';
+import Header from '@/components/Header.astro';
+import Accordion from '@/components/Accordion';
+import Carousel from '@/components/Carousel';
+import ContactForm from '@/components/ContactForm';
+import { getCurrentLanguage, useTranslations } from '@/i18n/utils';
+import { getConfig } from '@/services';
+import AutoSlider from '@/components/AutoSlider';
+import Card from '@/components/Card.astro';
+import Footer from '@/components/Footer.astro';
+import Map from '@/components/Map';
+import { HeartIcon, ShieldCheckIcon, ChatBubbleLeftEllipsisIcon } from '@heroicons/react/16/solid';
 
+const lang = getCurrentLanguage();
+const t = useTranslations(lang);
+const config = getConfig();
+
+const slidesData = [
+	{
+		imageUrl: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30',
+		title: 'slides.events.title',
+		description: 'slides.events.description',
+	},
+	{
+		imageUrl: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000',
+		title: 'slides.cities.title',
+		description: 'slides.cities.description',
+	},
+	{
+		imageUrl: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819',
+		title: 'slides.music.title',
+		description: 'slides.music.description',
+	},
+	{
+		imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
+		title: 'slides.nature.title',
+		description: 'slides.nature.description',
+	},
+];
+
+const accordionItems = [
+	{
+		id: 'assisted-living',
+		title: 'services.assisted.title',
+		content: 'services.assisted.description',
+	},
+	{
+		id: 'memory-care',
+		title: 'services.memory.title',
+		content: 'services.memory.description',
+	},
+	{
+		id: 'daily-activities',
+		title: 'services.daily.title',
+		content: 'services.daily.description',
+	},
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title={`${config.siteName}`} description={config.siteDescription} lang={lang}>
+	<Header />
+
+	<main class="bg-bg-100 pt-16 md:pt-20">
+		<section
+			id="home"
+			class="relative overflow-hidden bg-accent-cream/50 py-12 sm:py-16 md:py-20 lg:py-24"
+		>
+			<div class="container-custom relative z-10 mb-12 px-4 text-center sm:mb-16 md:mb-20">
+				<h1
+					class="mb-4 animate-fade-in font-heading text-3xl font-bold leading-tight text-neutral-800 dark:text-white sm:mb-5 sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl"
+					data-i18n="hero.title"
+				>
+					{t('hero.title')}
+				</h1>
+				<p
+					class="mx-auto mb-6 max-w-3xl animate-slide-up text-base leading-relaxed text-neutral-700 dark:text-neutral-300 sm:mb-7 sm:text-lg md:mb-8 md:text-xl lg:text-2xl"
+					data-i18n="hero.subtitle"
+				>
+					{t('hero.subtitle')}
+				</p>
+				<a
+					href="#contact"
+					class="btn-primary inline-block animate-slide-up rounded-full px-6 py-3 text-base text-white md:text-lg"
+					data-i18n="hero.cta"
+				>
+					{t('hero.cta')}
+				</a>
+			</div>
+			<div class="w-full">
+				<AutoSlider slides={slidesData} autoRotateInterval={5000} direction="auto" client:visible />
+			</div>
+		</section>
+
+		<section id="about" class="py-16 sm:py-20 md:py-24">
+			<div class="container-custom">
+				<h2
+					class="mb-12 text-center font-heading text-2xl font-bold text-neutral-800 dark:text-white sm:text-3xl md:mb-16 md:text-4xl lg:mb-20 lg:text-5xl"
+					data-i18n="commitment.title"
+				>
+					{t('commitment.title')}
+				</h2>
+
+				<div
+					class="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 md:gap-10 lg:gap-12"
+				>
+					<Card hoverable={true} shadow="medium">
+						<div class="p-6 text-center sm:p-8 md:p-10">
+							<div
+								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900/30 sm:h-20 sm:w-20 md:mb-6"
+							>
+								<HeartIcon className="size-[50px] text-primary-500" />
+							</div>
+							<h3
+								class="mb-3 text-lg font-semibold text-neutral-800 dark:text-white sm:text-xl md:mb-4 md:text-2xl"
+								data-i18n="commitment.care.title"
+							>
+								{t('commitment.care.title')}
+							</h3>
+							<p
+								class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 sm:text-base md:text-lg"
+								data-i18n="commitment.care.description"
+							>
+								{t('commitment.care.description')}
+							</p>
+						</div>
+					</Card>
+
+					<Card hoverable={true} shadow="medium">
+						<div class="p-6 text-center sm:p-8 md:p-10">
+							<div
+								class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary-100 dark:bg-secondary-900/30 sm:h-20 sm:w-20 md:mb-6"
+							>
+								<ShieldCheckIcon className="size-[50px] text-secondary-500" />
+							</div>
+							<h3
+								class="mb-3 text-lg font-semibold text-neutral-800 dark:text-white sm:text-xl md:mb-4 md:text-2xl"
+								data-i18n="commitment.safety.title"
+							>
+								{t('commitment.safety.title')}
+							</h3>
+							<p
+								class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 sm:text-base md:text-lg"
+								data-i18n="commitment.safety.description"
+							>
+								{t('commitment.safety.description')}
+							</p>
+						</div>
+					</Card>
+				</div>
+			</div>
+		</section>
+
+		<section id="services" class="bg-accent-cream/50 py-16 sm:py-20 md:py-24">
+			<div class="container-custom">
+				<h2
+					class="mb-12 text-center font-heading text-2xl font-bold text-neutral-800 dark:text-white sm:text-3xl md:mb-16 md:text-4xl lg:mb-20 lg:text-5xl"
+					data-i18n="services.title"
+				>
+					{t('services.title')}
+				</h2>
+
+				<div class="mx-auto max-w-4xl px-4">
+					<Accordion items={accordionItems} client:visible />
+				</div>
+			</div>
+		</section>
+
+		<section id="testimonials" class="py-16 sm:py-20 md:py-24">
+			<div class="container-custom">
+				<h2
+					class="mb-12 text-center font-heading text-2xl font-bold text-neutral-800 dark:text-white sm:text-3xl md:mb-16 md:text-4xl lg:mb-20 lg:text-5xl"
+					data-i18n="testimonials.title"
+				>
+					{t('testimonials.title')}
+				</h2>
+
+				<div class="mx-auto max-w-5xl px-4">
+					<Carousel autoPlay={true} interval={6000} client:visible />
+				</div>
+			</div>
+		</section>
+
+		<section id="contact" class="bg-accent-cream/50 py-16 sm:py-20 md:py-24">
+			<div class="container-custom">
+				<h2
+					class="mb-12 text-center font-heading text-2xl font-bold text-neutral-800 dark:text-white sm:text-3xl md:mb-16 md:text-4xl lg:mb-20 lg:text-5xl"
+					data-i18n="contact.title"
+				>
+					{t('contact.title')}
+				</h2>
+
+				<div class="mx-auto max-w-6xl space-y-8 px-4 md:space-y-10 lg:space-y-12">
+					<!-- Main Card: Form + WhatsApp -->
+					<div class="card p-6 sm:p-8 md:p-10">
+						<div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10">
+							<!-- Contact Form - Takes 2 columns -->
+							<div class="lg:col-span-2">
+								<ContactForm client:visible />
+							</div>
+
+							<!-- WhatsApp Card - Takes 1 column -->
+							<div class="flex flex-col justify-center">
+								<div
+									class="card bg-gradient-to-br from-secondary-50 to-secondary-100 p-6 text-center dark:from-secondary-900/20 dark:to-secondary-800/20"
+								>
+									<div
+										class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-secondary-500 sm:h-20 sm:w-20"
+									>
+										<ChatBubbleLeftEllipsisIcon className="size-[50px] text-text-50" />
+									</div>
+									<h3
+										class="mb-2 text-lg font-semibold text-text-900 sm:text-xl"
+										data-i18n="contact.whatsapp.title"
+									>
+										{t('contact.whatsapp.title')}
+									</h3>
+									<p
+										class="mb-5 text-sm leading-relaxed text-text-700 sm:text-base"
+										data-i18n="contact.whatsapp.subtitle"
+									>
+										{t('contact.whatsapp.subtitle')}
+									</p>
+									<a
+										href={`https://wa.me/${config.whatsapp}`}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="btn-secondary inline-flex items-center gap-2 px-6 py-3 text-base text-text-50"
+									>
+										<span data-i18n="contact.whatsapp.button">{t('contact.whatsapp.button')}</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Bottom Card: Contact Info + Map -->
+					<div class="card p-6 sm:p-8 md:p-10">
+						<div class="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
+							<!-- Contact Details -->
+							<div class="flex flex-col justify-center">
+								<div class="space-y-5 md:space-y-6">
+									<div>
+										<h4
+											class="mb-2 text-sm font-semibold text-neutral-800 dark:text-white sm:text-base md:text-lg"
+										>
+											<span data-i18n="contact.address">{t('contact.address')}</span>:
+										</h4>
+										<p
+											class="text-sm leading-relaxed text-neutral-600 dark:text-neutral-300 sm:text-base md:text-lg"
+										>
+											{config.address}
+										</p>
+									</div>
+									<div>
+										<h4
+											class="mb-2 text-sm font-semibold text-neutral-800 dark:text-white sm:text-base md:text-lg"
+										>
+											<span data-i18n="contact.phone.label">{t('contact.phone.label')}</span>:
+										</h4>
+										<a
+											href={`tel:${config.phone}`}
+											class="text-sm text-primary-600 hover:underline dark:text-primary-400 sm:text-base md:text-lg"
+										>
+											{config.phone}
+										</a>
+									</div>
+									<div>
+										<h4
+											class="mb-2 text-sm font-semibold text-neutral-800 dark:text-white sm:text-base md:text-lg"
+										>
+											<span data-i18n="contact.email.label">{t('contact.email.label')}</span>:
+										</h4>
+										<a
+											href={`mailto:${config.email}`}
+											class="break-all text-sm text-primary-600 hover:underline dark:text-primary-400 sm:text-base md:text-lg"
+										>
+											{config.email}
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!-- Map -->
+							<div class="card overflow-hidden">
+								<Map
+									client:load
+									latitude={config.map.latitude}
+									longitude={config.map.longitude}
+									zoom={config.map.zoom}
+									markerTitle={config.siteName}
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>

@@ -1,0 +1,34 @@
+[
+	{
+		"id": "1",
+		"name": "Margaret T.",
+		"role": "Resident since 2021",
+		"year": "2021",
+		"content": "Moving here was the best decision I've made. The staff are like family, and I've made so many wonderful friends. I feel safe, cared for, and truly at home.",
+		"image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400"
+	},
+	{
+		"id": "2",
+		"name": "John P.",
+		"role": "Son of a resident",
+		"year": "2022",
+		"content": "My mother has thrived since moving to Residence. The level of care and the variety of activities keep her engaged and happy. It gives our family great peace of mind.",
+		"image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400"
+	},
+	{
+		"id": "3",
+		"name": "David & Susan L.",
+		"role": "Residents since 2022",
+		"year": "2022",
+		"content": "We love the community feel here. There's always something to do, and the food is delicious! It's wonderful to enjoy our retirement without the worries of home maintenance.",
+		"image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400"
+	},
+	{
+		"id": "4",
+		"name": "Emily R.",
+		"role": "Daughter of a resident",
+		"year": "2023",
+		"content": "The communication from the staff is excellent. They truly care about my father's well-being and keep me updated regularly. I can't recommend this place enough.",
+		"image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+	}
+]

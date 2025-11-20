@@ -1,0 +1,116 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+	description: string;
+	lang?: string;
+}
+
+const { title, description, lang = "es" } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- Prevent FOUC by hiding body until translations are applied -->
+		<style>
+			html.loading-i18n body {
+				opacity: 0;
+			}
+			html.i18n-ready body {
+				opacity: 1;
+				transition: opacity 0.1s ease-in;
+			}
+		</style>
+
+		<!-- Early language detection - runs before page render to prevent FOUC -->
+		<script is:inline>
+			(function() {
+				// Add loading class to html element
+				document.documentElement.classList.add('loading-i18n');
+
+				// Get stored language from localStorage
+				function getStoredLanguage() {
+					try {
+						const stored = localStorage.getItem('language');
+						if (stored && ['es', 'en', 'pt', 'fr', 'it'].includes(stored)) {
+							return stored;
+						}
+					} catch (error) {
+						console.error('Error reading language from localStorage:', error);
+					}
+					return null;
+				}
+
+				// Get browser language
+				function getBrowserLanguage() {
+					const browserLang = navigator.language.split('-')[0];
+					const supportedLangs = ['es', 'en', 'pt', 'fr', 'it'];
+					return supportedLangs.includes(browserLang) ? browserLang : 'es';
+				}
+
+				// Save language to localStorage
+				function saveLanguage(lang) {
+					try {
+						localStorage.setItem('language', lang);
+					} catch (error) {
+						console.error('Error saving language to localStorage:', error);
+					}
+				}
+
+				// Initialize language with proper flow:
+				// 1. Check localStorage
+				// 2. If not found, use browser language and save it
+				// 3. Use that language for the app
+				let currentLang = getStoredLanguage();
+
+				if (!currentLang) {
+					// No stored language, use browser preference and save it
+					currentLang = getBrowserLanguage();
+					saveLanguage(currentLang);
+				}
+
+				// Set HTML lang attribute immediately
+				document.documentElement.lang = currentLang;
+
+				// Store in global variable for language store initialization
+				window.__INITIAL_LANGUAGE__ = currentLang;
+			})();
+		</script>
+
+		<!-- SEO Meta Tags -->
+		<meta name="robots" content="index, follow" />
+		<meta name="author" content="Residence Care" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		<!-- Preconnect to Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Load i18n client script early with defer -->
+		<script>
+			import '@/scripts/i18n-client';
+		</script>
+
+		<title>{title}</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

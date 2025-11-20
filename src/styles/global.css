@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* Primary colors */
+    --primary-50: #fdedee;
+    --primary-100: #fad7da;
+    --primary-200: #f7b5bb;
+    --primary-300: #f4949e;
+    --primary-400: #f27281;
+    --primary-500: #f14c65;
+    --primary-600: #d22d4b;
+    --primary-700: #a32138;
+    --primary-800: #721425;
+    --primary-900: #420712;
+
+    /* Secondary colors */
+    --secondary-50: #b8ffeb;
+    --secondary-100: #16fcd5;
+    --secondary-200: #12e1bd;
+    --secondary-300: #0fc9a9;
+    --secondary-400: #0cb397;
+    --secondary-500: #08967e;
+    --secondary-600: #057763;
+    --secondary-700: #025647;
+    --secondary-800: #01352b;
+    --secondary-900: #00140f;
+
+    /* Neutral Colors */
+    --color-neutral-50: #fafaf9;
+    --color-neutral-100: #f5f5f4;
+    --color-neutral-200: #e7e5e4;
+    --color-neutral-300: #d6d3d1;
+    --color-neutral-400: #a8a29e;
+    --color-neutral-500: #78716c;
+    --color-neutral-600: #57534e;
+    --color-neutral-700: #44403c;
+    --color-neutral-800: #292524;
+    --color-neutral-900: #1c1917;
+
+    --bg-50: #fbf8f2;
+    --bg-100: #f7f0e2;
+    --bg-200: #ebd9ad;
+    --bg-300: #d0be94;
+    --bg-400: #b1a27d;
+    --bg-500: #918566;
+    --bg-600: #71674e;
+    --bg-700: #514937;
+    --bg-800: #322d20;
+    --bg-900: #13110a;
+
+    --text-50: #f1f1f1;
+    --text-100: #dcdcdc;
+    --text-200: #bcbcbc;
+    --text-300: #a1a1a1;
+    --text-400: #888888;
+    --text-500: #717171;
+    --text-600: #5b5b5b;
+    --text-700: #474747;
+    --text-800: #343434;
+    --text-900: #232323;
+    --text-950: #111111;
+
+    --accent-coral: #f18d78;
+    --accent-peach: #fdb4a8;
+    --accent-cream: #fef5f3;
+    --accent-sage: #a9c8b1;
+    --accent-sky: #a8d5e8;
+    --accent-lavender: #d8c8e8;
+    --accent-gold: #f5d491;
+
+    /* Typography */
+    --font-sans: Inter, system-ui, sans-serif;
+    --font-heading: Poppins, system-ui, sans-serif;
+
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+
+    /* Spacing */
+    --spacing-18: 4.5rem;
+    --spacing-22: 5.5rem;
+    --spacing-26: 6.5rem;
+    --spacing-30: 7.5rem;
+    --spacing-34: 8.5rem;
+
+    /* Border Radius */
+    --radius-4xl: 2rem;
+    --radius-5xl: 2.5rem;
+
+    /* Shadows */
+    --shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+    --shadow-medium: 0 4px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 30px -5px rgba(0, 0, 0, 0.04);
+    --shadow-large: 0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 20px 50px -10px rgba(0, 0, 0, 0.1);
+  }
+
+  * {
+    @apply border-neutral-200 dark:border-neutral-700;
+  }
+
+  body {
+    @apply text-neutral-800 antialiased dark:bg-neutral-900 dark:text-neutral-100;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-bold;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-full px-6 py-3 font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn text-text-900 bg-primary-500 shadow-md hover:bg-primary-600 hover:shadow-lg focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply btn text-text-900 bg-secondary-500 shadow-md hover:bg-secondary-600 hover:shadow-lg focus:ring-secondary-500;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-current bg-transparent hover:bg-neutral-100 dark:hover:bg-neutral-800;
+  }
+
+  .container-custom {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-24;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white shadow-soft transition-shadow duration-300 hover:shadow-medium dark:bg-neutral-800;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

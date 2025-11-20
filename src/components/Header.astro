@@ -1,0 +1,419 @@
+---
+import { languages } from '@/i18n/config';
+import { getCurrentLanguage, useTranslations } from '@/i18n/utils';
+
+const currentLang = getCurrentLanguage();
+const t = useTranslations(currentLang);
+---
+
+<header
+	id="main-header"
+	class="fixed top-0 left-0 right-0 z-50 bg-white/10 dark:bg-neutral-900/10 backdrop-blur-md border-b border-white/20 shadow-lg"
+>
+	<nav class="container-custom">
+		<div class="flex items-center justify-between h-20">
+			<a
+				href="#home"
+				class="flex items-center gap-2 text-xl font-heading font-bold text-text-900 transition-colors"
+			>
+				<img
+					src="/logo.png"
+					alt="Residence Logo"
+					width={40}
+					height={40}
+					class="w-10 h-10"
+				/>
+			</a>
+
+			<!-- Desktop Navigation + Controls -->
+			<div class="hidden md:flex items-center gap-6">
+				<!-- Navigation Links -->
+				<ul class="flex items-center gap-6">
+					<li>
+						<a
+							href="#about"
+							class="nav-link text-text-900-900 hover:text-primary-300 transition-colors font-medium"
+							data-i18n="nav.about"
+						>
+							{t('nav.about')}
+						</a>
+					</li>
+					<li>
+						<a
+							href="#services"
+							class="nav-link text-text-900 hover:text-primary-300 transition-colors font-medium"
+							data-i18n="nav.services"
+						>
+							{t('nav.services')}
+						</a>
+					</li>
+					<li>
+						<a
+							href="#testimonials"
+							class="nav-link text-text-900 hover:text-primary-300 transition-colors font-medium"
+							data-i18n="nav.testimonials"
+						>
+							{t('nav.testimonials')}
+						</a>
+					</li>
+					<li>
+						<a
+							href="#contact"
+							class="nav-link text-text-900 hover:text-primary-300 transition-colors font-medium"
+							data-i18n="nav.contact"
+						>
+							{t('nav.contact')}
+						</a>
+					</li>
+				</ul>
+
+				<!-- Divider -->
+				<div class="w-px h-6 bg-white/20"></div>
+
+				<!-- Language Selector -->
+				<div class="relative language-selector">
+					<button
+						id="language-button"
+						class="flex items-center gap-2 px-3 py-2 rounded-lg bg-black/5 hover:bg-black/10 backdrop-blur-sm text-text-900 transition-all duration-200"
+						aria-label="Select language"
+					>
+						<span class="text-sm font-medium uppercase" id="current-lang-display" data-lang-display>{currentLang}</span>
+						<svg
+							class="w-4 h-4 transition-transform duration-200"
+							id="language-chevron"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path d="M19 9l-7 7-7-7"></path>
+						</svg>
+					</button>
+
+					<div
+						id="language-dropdown"
+						class="absolute right-0 mt-1 w-40 rounded-lg bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-xl border border-neutral-200/20 dark:border-neutral-700/20 opacity-0 invisible transition-all duration-200 transform origin-top scale-95"
+					>
+						<ul class="flex flex-col gap-1 p-1">
+							{
+								Object.entries(languages).map(([code, name]) => (
+									<li>
+										<button
+											data-lang={code}
+											class={`language-option w-full text-left block px-4 py-2 text-sm transition-colors rounded-md ${
+												code === currentLang
+													? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 font-medium'
+													: 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+											}`}
+										>
+											{name}
+										</button>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="flex md:hidden items-center gap-4">
+				<div class="relative language-selector">
+					<button
+						id="mobile-language-button"
+						class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm text-text-900 transition-all duration-200 border border-white/20"
+						aria-label="Select language"
+					>
+						<span class="text-sm font-medium uppercase" id="mobile-current-lang-display" data-lang-display>{currentLang}</span>
+						<svg
+							class="w-4 h-4 transition-transform duration-200"
+							id="mobile-language-chevron"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path d="M19 9l-7 7-7-7"></path>
+						</svg>
+					</button>
+
+					<div
+						id="mobile-language-dropdown"
+						class="absolute right-0 mt-2 w-40 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-xl border border-neutral-200/20 dark:border-neutral-700/20 opacity-0 invisible transition-all duration-200 transform origin-top scale-95"
+					>
+						<ul class="py-2">
+							{
+								Object.entries(languages).map(([code, name]) => (
+									<li>
+										<button
+											data-lang={code}
+											class={`mobile-language-option w-full text-left block px-4 py-2 text-sm transition-colors ${
+												code === currentLang
+													? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 font-medium'
+													: 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+											}`}
+										>
+											{name}
+										</button>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+
+				<button
+					id="mobile-menu-button"
+					class="p-2 text-text-900"
+					aria-label="Toggle menu"
+				>
+					<svg
+						id="menu-icon-open"
+						class="w-6 h-6"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+					<svg
+						id="menu-icon-close"
+						class="w-6 h-6 hidden"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path d="M6 18L18 6M6 6l12 12"></path>
+					</svg>
+				</button>
+			</div>
+		</div>
+
+		<div
+			id="mobile-menu"
+			class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out"
+		>
+			<div
+				class="py-4 mt-4 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md rounded-2xl shadow-lg border border-white/20"
+			>
+				<ul class="flex flex-col gap-2 px-4">
+					<li>
+						<a
+							href="#about"
+							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
+							data-i18n="nav.about"
+						>
+							{t('nav.about')}
+						</a>
+					</li>
+					<li>
+						<a
+							href="#services"
+							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
+							data-i18n="nav.services"
+						>
+							{t('nav.services')}
+						</a>
+					</li>
+					<li>
+						<a
+							href="#testimonials"
+							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
+							data-i18n="nav.testimonials"
+						>
+							{t('nav.testimonials')}
+						</a>
+					</li>
+					<li>
+						<a
+							href="#contact"
+							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
+							data-i18n="nav.contact"
+						>
+							{t('nav.contact')}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+
+<style>
+	:global(html) {
+		scroll-behavior: smooth;
+	}
+
+	.language-selector.open #language-dropdown {
+		opacity: 1;
+		visibility: visible;
+		transform: scale(1);
+	}
+
+	.language-selector.open #language-chevron {
+		transform: rotate(180deg);
+	}
+
+	.language-selector.open #mobile-language-dropdown {
+		opacity: 1;
+		visibility: visible;
+		transform: scale(1);
+	}
+
+	.language-selector.open #mobile-language-chevron {
+		transform: rotate(180deg);
+	}
+</style>
+
+<script>
+	import { saveLanguage, getStoredLanguage } from '@/services/localStorage';
+
+	function smoothScrollTo(targetId: string) {
+		const target = document.querySelector(targetId);
+		if (target) {
+			const headerHeight = 80;
+			const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+			window.scrollTo({
+				top: targetPosition,
+				behavior: 'smooth'
+			});
+		}
+	}
+
+	// Update active language option in dropdown
+	function updateActiveLanguageOption() {
+		const currentLang = getStoredLanguage() || 'es';
+
+		// Update all language options (both desktop and mobile)
+		const allLanguageOptions = document.querySelectorAll('.language-option, .mobile-language-option');
+
+		allLanguageOptions.forEach((option) => {
+			const lang = option.getAttribute('data-lang');
+
+			if (lang === currentLang) {
+				// Add active classes
+				option.classList.add('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-600', 'dark:text-primary-400', 'font-medium');
+				option.classList.remove('text-neutral-700', 'dark:text-neutral-300', 'hover:bg-neutral-100', 'dark:hover:bg-neutral-800');
+			} else {
+				// Remove active classes
+				option.classList.remove('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-600', 'dark:text-primary-400', 'font-medium');
+				option.classList.add('text-neutral-700', 'dark:text-neutral-300', 'hover:bg-neutral-100', 'dark:hover:bg-neutral-800');
+			}
+		});
+	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		// Update active language option on page load
+		updateActiveLanguageOption();
+
+		const navLinks = document.querySelectorAll('a[href^="#"]');
+
+		navLinks.forEach(link => {
+			link.addEventListener('click', (e) => {
+				const href = link.getAttribute('href');
+				if (href && href.startsWith('#') && href !== '#') {
+					e.preventDefault();
+					smoothScrollTo(href);
+					history.pushState(null, '', href);
+				}
+			});
+		});
+	});
+
+	// Mobile menu
+	const mobileMenuButton = document.getElementById('mobile-menu-button');
+	const mobileMenu = document.getElementById('mobile-menu');
+	const menuIconOpen = document.getElementById('menu-icon-open');
+	const menuIconClose = document.getElementById('menu-icon-close');
+	let isMobileMenuOpen = false;
+
+	mobileMenuButton?.addEventListener('click', () => {
+		isMobileMenuOpen = !isMobileMenuOpen;
+
+		if (isMobileMenuOpen) {
+			mobileMenu?.classList.remove('max-h-0');
+			mobileMenu?.classList.add('max-h-96');
+			menuIconOpen?.classList.add('hidden');
+			menuIconClose?.classList.remove('hidden');
+		} else {
+			mobileMenu?.classList.add('max-h-0');
+			mobileMenu?.classList.remove('max-h-96');
+			menuIconOpen?.classList.remove('hidden');
+			menuIconClose?.classList.add('hidden');
+		}
+	});
+
+	const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+	mobileNavLinks.forEach((link) => {
+		link.addEventListener('click', () => {
+			if (isMobileMenuOpen) {
+				isMobileMenuOpen = false;
+				mobileMenu?.classList.add('max-h-0');
+				mobileMenu?.classList.remove('max-h-96');
+				menuIconOpen?.classList.remove('hidden');
+				menuIconClose?.classList.add('hidden');
+			}
+		});
+	});
+
+	// Desktop language selector
+	const languageButton = document.getElementById('language-button');
+	const languageSelector = document.querySelector('.language-selector');
+
+	languageButton?.addEventListener('click', (e) => {
+		e.stopPropagation();
+		languageSelector?.classList.toggle('open');
+	});
+
+	document.addEventListener('click', (e) => {
+		if (!languageSelector?.contains(e.target as Node)) {
+			languageSelector?.classList.remove('open');
+		}
+	});
+
+	const languageOptions = document.querySelectorAll('.language-option');
+
+	languageOptions.forEach((option) => {
+		option.addEventListener('click', () => {
+			const lang = option.getAttribute('data-lang');
+			if (lang) {
+				// Save language directly to localStorage
+				saveLanguage(lang as any);
+				// Reload page to apply language change
+				window.location.reload();
+			}
+		});
+	});
+
+	// Mobile language selector
+	const mobileLanguageButton = document.getElementById('mobile-language-button');
+
+	mobileLanguageButton?.addEventListener('click', (e) => {
+		e.stopPropagation();
+		mobileLanguageButton.closest('.language-selector')?.classList.toggle('open');
+	});
+
+	const mobileLanguageOptions = document.querySelectorAll('.mobile-language-option');
+
+	mobileLanguageOptions.forEach((option) => {
+		option.addEventListener('click', () => {
+			const lang = option.getAttribute('data-lang');
+			if (lang) {
+				// Save language directly to localStorage
+				saveLanguage(lang as any);
+				// Reload page to apply language change
+				window.location.reload();
+			}
+		});
+	});
+</script>
