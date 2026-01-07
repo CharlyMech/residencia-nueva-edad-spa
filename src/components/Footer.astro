@@ -24,7 +24,7 @@ const currentYear = new Date().getFullYear();
 
 			<div class="flex items-center gap-4 sm:gap-5 md:gap-6">
 				{
-					config.social.facebook && (
+					config.social?.facebook && (
 						<a
 							href={config.social.facebook}
 							target="_blank"
@@ -43,7 +43,7 @@ const currentYear = new Date().getFullYear();
 					)
 				}
 				{
-					config.social.instagram && (
+					config.social?.instagram && (
 						<a
 							href={config.social.instagram}
 							target="_blank"
@@ -62,7 +62,7 @@ const currentYear = new Date().getFullYear();
 					)
 				}
 				{
-					config.social.twitter && (
+					config.social?.twitter && (
 						<a
 							href={config.social.twitter}
 							target="_blank"
