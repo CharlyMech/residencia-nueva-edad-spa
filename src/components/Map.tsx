@@ -1,5 +1,4 @@
-// components/Map.tsx
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface MapProps {
 	latitude: number;
@@ -8,14 +7,9 @@ interface MapProps {
 	markerTitle?: string;
 }
 
-/**
- * Simple map component using OpenStreetMap tiles
- * No external dependencies required - uses native browser APIs
- */
 export default function Map({
 	latitude,
 	longitude,
-	zoom = 15,
 	markerTitle = 'Location'
 }: MapProps) {
 	const [isClient, setIsClient] = useState(false);
@@ -32,32 +26,28 @@ export default function Map({
 		);
 	}
 
-	// Generate OpenStreetMap URL
-	const osmUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${longitude - 0.01},${latitude - 0.01},${longitude + 0.01},${latitude + 0.01}&layer=mapnik&marker=${latitude},${longitude}`;
-
-	// Generate Google Maps fallback URL
-	const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+	const googleMapsEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2984.336673472854!2d-4.569835523123056!3d41.58359878380035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd471756cbc12c55%3A0xdec4b3a9d20d392!2sResidencia%20Nueva%20Edad!5e0!3m2!1sen!2ses!4v1766578113775!5m2!1sen!2ses";
+	const googleMapsLink = "https://maps.app.goo.gl/CdQWrLYeJrTqsXbWA";
 
 	return (
-		<div className="relative h-full min-h-[400px] overflow-hidden rounded-lg shadow-md">
-			{/* OpenStreetMap Embed */}
+		<div className="relative h-full min-h-[400px] overflow-hidden rounded-lg shadow-md group">
 			<iframe
 				title={markerTitle}
-				src={osmUrl}
+				src={googleMapsEmbedUrl}
 				className="h-full w-full border-0"
 				style={{ minHeight: '400px' }}
 				loading="lazy"
 				allowFullScreen
+				referrerPolicy="no-referrer-when-downgrade"
 			/>
 
-			{/* Link to open in external map */}
 			<a
-				href={googleMapsUrl}
+				href={googleMapsLink}
 				target="_blank"
 				rel="noopener noreferrer"
-				className="absolute bottom-4 right-4 rounded-lg bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-lg transition-all hover:bg-neutral-50 hover:shadow-xl dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+				className="absolute bottom-4 right-4 rounded-lg bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-lg transition-all hover:bg-neutral-50 hover:shadow-xl dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700 opacity-90 hover:opacity-100"
 			>
-				View on Google Maps
+				Ver en Google Maps
 			</a>
 		</div>
 	);

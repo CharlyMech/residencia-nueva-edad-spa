@@ -4,6 +4,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "types": [
+      "astro/client",
       "@types/react",
       "@types/react-dom"
     ],

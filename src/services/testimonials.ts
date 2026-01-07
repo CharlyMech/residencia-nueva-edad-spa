@@ -40,20 +40,9 @@ const MOCK_TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-/**
- * Gets testimonials from external API or mock data
- *
- * @returns Promise<Testimonial[]> List of validated testimonials
- *
- * Flow:
- * 1. If PUBLIC_GOOGLE_TESTIMONIALS exists, fetch from API
- * 2. If it fails or doesn't exist, return mock data
- * 3. Validate all data with TestimonialSchema before returning
- */
 export async function fetchTestimonials(): Promise<Testimonial[]> {
   const apiUrl = import.meta.env.PUBLIC_GOOGLE_TESTIMONIALS;
 
-  // If no API URL is configured, use mock data
   if (!apiUrl) {
     console.info('📝 Using mock testimonials data (no API URL configured)');
     return MOCK_TESTIMONIALS;
@@ -70,7 +59,6 @@ export async function fetchTestimonials(): Promise<Testimonial[]> {
 
     const data = await response.json();
 
-    // Validate each testimonial
     const validated = data
       .map((item: unknown) => {
         try {
@@ -89,11 +77,3 @@ export async function fetchTestimonials(): Promise<Testimonial[]> {
     return MOCK_TESTIMONIALS;
   }
 }
-
-/**
- * Gets testimonials synchronously
- * Useful for store initialization
- */
-// export function getTestimonialsMock(): Testimonial[] {
-//   return MOCK_TESTIMONIALS;
-// }

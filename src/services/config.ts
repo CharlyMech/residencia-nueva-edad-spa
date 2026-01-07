@@ -2,11 +2,11 @@
 export interface SiteConfig {
   siteName: string;
   siteDescription: string;
-  whatsapp: string;
+  whatsapp?: string;
   address: string;
   phone: string;
   email: string;
-  social: {
+  social?: {
     facebook?: string;
     instagram?: string;
     twitter?: string;
@@ -24,28 +24,28 @@ export interface SiteConfig {
  */
 export function getConfig(): SiteConfig {
   const config: SiteConfig = {
-    siteName: import.meta.env.PUBLIC_SITE_NAME || 'Residence',
-    siteDescription: import.meta.env.PUBLIC_SITE_DESCRIPTION || 'Senior living community',
-    whatsapp: import.meta.env.PUBLIC_WHATSAPP || '+1234567890',
-    address: import.meta.env.PUBLIC_ADDRESS || '123 Main Street, City, State',
-    phone: import.meta.env.PUBLIC_PHONE || '+1 (555) 123-4567',
-    email: import.meta.env.PUBLIC_EMAIL || 'info@residence.com',
+    siteName: import.meta.env.PUBLIC_SITE_NAME || 'Residencia Nueva Edad - Valdestillas',
+    siteDescription: import.meta.env.PUBLIC_SITE_DESCRIPTION || 'Residencia de ancianos en Valdestillas, Valladolid. Cuidado integral, cariño y actividades para que te sientas como en casa.',
+    whatsapp: import.meta.env.PUBLIC_WHATSAPP || undefined,
+    address: import.meta.env.PUBLIC_ADDRESS || 'Calle Real 1, Valdestillas, Valladolid',
+    phone: import.meta.env.PUBLIC_PHONE || '+34 983 00 00 00',
+    email: import.meta.env.PUBLIC_EMAIL || 'info@residencianuevaedad.com',
     social: {
       facebook: import.meta.env.PUBLIC_FACEBOOK_URL,
       instagram: import.meta.env.PUBLIC_INSTAGRAM_URL,
       twitter: import.meta.env.PUBLIC_TWITTER_URL,
     },
     map: {
-      latitude: parseFloat(import.meta.env.PUBLIC_MAP_LATITUDE || '40.7128'),
-      longitude: parseFloat(import.meta.env.PUBLIC_MAP_LONGITUDE || '-74.0060'),
+      latitude: parseFloat(import.meta.env.PUBLIC_MAP_LATITUDE || '41.58359878380035'),
+      longitude: parseFloat(import.meta.env.PUBLIC_MAP_LONGITUDE || '-4.569835523123056'),
       zoom: parseInt(import.meta.env.PUBLIC_MAP_ZOOM || '15', 10),
     },
   };
 
   // Filter out undefined social media links
-  config.social = Object.fromEntries(
+  config.social = config.social ? Object.fromEntries(
     Object.entries(config.social).filter(([_, value]) => value !== undefined)
-  ) as SiteConfig['social'];
+  ) as SiteConfig['social'] : undefined;
 
   return config;
 }

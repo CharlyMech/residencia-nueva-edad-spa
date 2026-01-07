@@ -8,31 +8,25 @@ const t = useTranslations(currentLang);
 
 <header
 	id="main-header"
-	class="fixed top-0 left-0 right-0 z-50 bg-white/10 dark:bg-neutral-900/10 backdrop-blur-md border-b border-white/20 shadow-lg"
+	class="fixed left-0 right-0 top-0 z-50 border-b border-white/20 bg-white/10 shadow-lg backdrop-blur-md dark:bg-neutral-900/10"
 >
 	<nav class="container-custom">
-		<div class="flex items-center justify-between h-20">
+		<div class="flex h-20 items-center justify-between">
 			<a
 				href="#home"
-				class="flex items-center gap-2 text-xl font-heading font-bold text-text-900 transition-colors"
+				class="flex items-center gap-2 font-heading text-xl font-bold text-text-900 transition-colors"
 			>
-				<img
-					src="/logo.png"
-					alt="Residence Logo"
-					width={40}
-					height={40}
-					class="w-10 h-10"
-				/>
+				<img src="/logo.png" alt="Residence Logo" width={40} height={40} class="h-10 w-10" />
 			</a>
 
 			<!-- Desktop Navigation + Controls -->
-			<div class="hidden md:flex items-center gap-6">
+			<div class="hidden items-center gap-6 md:flex">
 				<!-- Navigation Links -->
 				<ul class="flex items-center gap-6">
 					<li>
 						<a
 							href="#about"
-							class="nav-link text-text-900-900 hover:text-primary-300 transition-colors font-medium"
+							class="nav-link text-text-900-900 font-medium transition-colors hover:text-primary-300"
 							data-i18n="nav.about"
 						>
 							{t('nav.about')}
@@ -41,7 +35,7 @@ const t = useTranslations(currentLang);
 					<li>
 						<a
 							href="#services"
-							class="nav-link text-text-900 hover:text-primary-300 transition-colors font-medium"
+							class="nav-link font-medium text-text-900 transition-colors hover:text-primary-300"
 							data-i18n="nav.services"
 						>
 							{t('nav.services')}
@@ -50,7 +44,7 @@ const t = useTranslations(currentLang);
 					<li>
 						<a
 							href="#testimonials"
-							class="nav-link text-text-900 hover:text-primary-300 transition-colors font-medium"
+							class="nav-link font-medium text-text-900 transition-colors hover:text-primary-300"
 							data-i18n="nav.testimonials"
 						>
 							{t('nav.testimonials')}
@@ -59,7 +53,7 @@ const t = useTranslations(currentLang);
 					<li>
 						<a
 							href="#contact"
-							class="nav-link text-text-900 hover:text-primary-300 transition-colors font-medium"
+							class="nav-link font-medium text-text-900 transition-colors hover:text-primary-300"
 							data-i18n="nav.contact"
 						>
 							{t('nav.contact')}
@@ -68,18 +62,20 @@ const t = useTranslations(currentLang);
 				</ul>
 
 				<!-- Divider -->
-				<div class="w-px h-6 bg-white/20"></div>
+				<div class="h-6 w-px bg-white/20"></div>
 
 				<!-- Language Selector -->
-				<div class="relative language-selector">
+				<div class="language-selector relative">
 					<button
 						id="language-button"
-						class="flex items-center gap-2 px-3 py-2 rounded-lg bg-black/5 hover:bg-black/10 backdrop-blur-sm text-text-900 transition-all duration-200"
+						class="flex items-center gap-2 rounded-lg bg-black/5 px-3 py-2 text-text-900 backdrop-blur-sm transition-all duration-200 hover:bg-black/10"
 						aria-label="Select language"
 					>
-						<span class="text-sm font-medium uppercase" id="current-lang-display" data-lang-display>{currentLang}</span>
+						<span class="text-sm font-medium uppercase" id="current-lang-display" data-lang-display
+							>{currentLang}</span
+						>
 						<svg
-							class="w-4 h-4 transition-transform duration-200"
+							class="h-4 w-4 transition-transform duration-200"
 							id="language-chevron"
 							fill="none"
 							stroke-linecap="round"
@@ -94,7 +90,7 @@ const t = useTranslations(currentLang);
 
 					<div
 						id="language-dropdown"
-						class="absolute right-0 mt-1 w-40 rounded-lg bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-xl border border-neutral-200/20 dark:border-neutral-700/20 opacity-0 invisible transition-all duration-200 transform origin-top scale-95"
+						class="invisible absolute right-0 mt-1 w-40 origin-top scale-95 transform rounded-lg border border-neutral-200/20 bg-white/95 opacity-0 shadow-xl backdrop-blur-md transition-all duration-200 dark:border-neutral-700/20 dark:bg-neutral-900/95"
 					>
 						<ul class="flex flex-col gap-1 p-1">
 							{
@@ -102,10 +98,10 @@ const t = useTranslations(currentLang);
 									<li>
 										<button
 											data-lang={code}
-											class={`language-option w-full text-left block px-4 py-2 text-sm transition-colors rounded-md ${
+											class={`language-option block w-full rounded-md px-4 py-2 text-left text-sm transition-colors ${
 												code === currentLang
-													? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 font-medium'
-													: 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+													? 'bg-primary-100 font-medium text-primary-600 dark:bg-primary-900/30 dark:text-primary-400'
+													: 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
 											}`}
 										>
 											{name}
@@ -118,16 +114,20 @@ const t = useTranslations(currentLang);
 				</div>
 			</div>
 
-			<div class="flex md:hidden items-center gap-4">
-				<div class="relative language-selector">
+			<div class="flex items-center gap-4 md:hidden">
+				<div class="language-selector relative">
 					<button
 						id="mobile-language-button"
-						class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm text-text-900 transition-all duration-200 border border-white/20"
+						class="flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-text-900 backdrop-blur-sm transition-all duration-200 hover:bg-white/20"
 						aria-label="Select language"
 					>
-						<span class="text-sm font-medium uppercase" id="mobile-current-lang-display" data-lang-display>{currentLang}</span>
+						<span
+							class="text-sm font-medium uppercase"
+							id="mobile-current-lang-display"
+							data-lang-display>{currentLang}</span
+						>
 						<svg
-							class="w-4 h-4 transition-transform duration-200"
+							class="h-4 w-4 transition-transform duration-200"
 							id="mobile-language-chevron"
 							fill="none"
 							stroke-linecap="round"
@@ -142,7 +142,7 @@ const t = useTranslations(currentLang);
 
 					<div
 						id="mobile-language-dropdown"
-						class="absolute right-0 mt-2 w-40 rounded-xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-xl border border-neutral-200/20 dark:border-neutral-700/20 opacity-0 invisible transition-all duration-200 transform origin-top scale-95"
+						class="invisible absolute right-0 mt-2 w-40 origin-top scale-95 transform rounded-xl border border-neutral-200/20 bg-white/95 opacity-0 shadow-xl backdrop-blur-md transition-all duration-200 dark:border-neutral-700/20 dark:bg-neutral-900/95"
 					>
 						<ul class="py-2">
 							{
@@ -150,10 +150,10 @@ const t = useTranslations(currentLang);
 									<li>
 										<button
 											data-lang={code}
-											class={`mobile-language-option w-full text-left block px-4 py-2 text-sm transition-colors ${
+											class={`mobile-language-option block w-full px-4 py-2 text-left text-sm transition-colors ${
 												code === currentLang
-													? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 font-medium'
-													: 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800'
+													? 'bg-primary-100 font-medium text-primary-600 dark:bg-primary-900/30 dark:text-primary-400'
+													: 'text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
 											}`}
 										>
 											{name}
@@ -165,14 +165,10 @@ const t = useTranslations(currentLang);
 					</div>
 				</div>
 
-				<button
-					id="mobile-menu-button"
-					class="p-2 text-text-900"
-					aria-label="Toggle menu"
-				>
+				<button id="mobile-menu-button" class="p-2 text-text-900" aria-label="Toggle menu">
 					<svg
 						id="menu-icon-open"
-						class="w-6 h-6"
+						class="h-6 w-6"
 						fill="none"
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -184,7 +180,7 @@ const t = useTranslations(currentLang);
 					</svg>
 					<svg
 						id="menu-icon-close"
-						class="w-6 h-6 hidden"
+						class="hidden h-6 w-6"
 						fill="none"
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -200,49 +196,51 @@ const t = useTranslations(currentLang);
 
 		<div
 			id="mobile-menu"
-			class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out"
+			class="absolute left-0 right-0 top-20 -z-10 max-h-0 w-full overflow-hidden bg-transparent transition-all duration-300 ease-in-out md:hidden"
 		>
-			<div
-				class="py-4 mt-4 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md rounded-2xl shadow-lg border border-white/20"
-			>
-				<ul class="flex flex-col gap-2 px-4">
-					<li>
-						<a
-							href="#about"
-							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
-							data-i18n="nav.about"
-						>
-							{t('nav.about')}
-						</a>
-					</li>
-					<li>
-						<a
-							href="#services"
-							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
-							data-i18n="nav.services"
-						>
-							{t('nav.services')}
-						</a>
-					</li>
-					<li>
-						<a
-							href="#testimonials"
-							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
-							data-i18n="nav.testimonials"
-						>
-							{t('nav.testimonials')}
-						</a>
-					</li>
-					<li>
-						<a
-							href="#contact"
-							class="mobile-nav-link block py-3 px-4 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-neutral-700 dark:text-neutral-300"
-							data-i18n="nav.contact"
-						>
-							{t('nav.contact')}
-						</a>
-					</li>
-				</ul>
+			<div class="container-custom pb-8 text-center">
+				<div
+					class="mt-2 rounded-2xl border border-neutral-100 bg-white/95 px-6 py-4 shadow-xl backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/95"
+				>
+					<ul class="flex flex-col gap-4 text-left">
+						<li>
+							<a
+								href="#about"
+								class="mobile-nav-link block rounded-lg py-2 text-lg font-medium text-neutral-700 transition-colors hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+								data-i18n="nav.about"
+							>
+								{t('nav.about')}
+							</a>
+						</li>
+						<li>
+							<a
+								href="#services"
+								class="mobile-nav-link block rounded-lg py-2 text-lg font-medium text-neutral-700 transition-colors hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+								data-i18n="nav.services"
+							>
+								{t('nav.services')}
+							</a>
+						</li>
+						<li>
+							<a
+								href="#testimonials"
+								class="mobile-nav-link block rounded-lg py-2 text-lg font-medium text-neutral-700 transition-colors hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+								data-i18n="nav.testimonials"
+							>
+								{t('nav.testimonials')}
+							</a>
+						</li>
+						<li>
+							<a
+								href="#contact"
+								class="mobile-nav-link block rounded-lg py-2 text-lg font-medium text-neutral-700 transition-colors hover:text-primary-600 dark:text-neutral-300 dark:hover:text-primary-400"
+								data-i18n="nav.contact"
+							>
+								{t('nav.contact')}
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</nav>
@@ -285,7 +283,7 @@ const t = useTranslations(currentLang);
 
 			window.scrollTo({
 				top: targetPosition,
-				behavior: 'smooth'
+				behavior: 'smooth',
 			});
 		}
 	}
@@ -295,19 +293,43 @@ const t = useTranslations(currentLang);
 		const currentLang = getStoredLanguage() || 'es';
 
 		// Update all language options (both desktop and mobile)
-		const allLanguageOptions = document.querySelectorAll('.language-option, .mobile-language-option');
+		const allLanguageOptions = document.querySelectorAll(
+			'.language-option, .mobile-language-option'
+		);
 
 		allLanguageOptions.forEach((option) => {
 			const lang = option.getAttribute('data-lang');
 
 			if (lang === currentLang) {
 				// Add active classes
-				option.classList.add('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-600', 'dark:text-primary-400', 'font-medium');
-				option.classList.remove('text-neutral-700', 'dark:text-neutral-300', 'hover:bg-neutral-100', 'dark:hover:bg-neutral-800');
+				option.classList.add(
+					'bg-primary-100',
+					'dark:bg-primary-900/30',
+					'text-primary-600',
+					'dark:text-primary-400',
+					'font-medium'
+				);
+				option.classList.remove(
+					'text-neutral-700',
+					'dark:text-neutral-300',
+					'hover:bg-neutral-100',
+					'dark:hover:bg-neutral-800'
+				);
 			} else {
 				// Remove active classes
-				option.classList.remove('bg-primary-100', 'dark:bg-primary-900/30', 'text-primary-600', 'dark:text-primary-400', 'font-medium');
-				option.classList.add('text-neutral-700', 'dark:text-neutral-300', 'hover:bg-neutral-100', 'dark:hover:bg-neutral-800');
+				option.classList.remove(
+					'bg-primary-100',
+					'dark:bg-primary-900/30',
+					'text-primary-600',
+					'dark:text-primary-400',
+					'font-medium'
+				);
+				option.classList.add(
+					'text-neutral-700',
+					'dark:text-neutral-300',
+					'hover:bg-neutral-100',
+					'dark:hover:bg-neutral-800'
+				);
 			}
 		});
 	}
@@ -318,7 +340,7 @@ const t = useTranslations(currentLang);
 
 		const navLinks = document.querySelectorAll('a[href^="#"]');
 
-		navLinks.forEach(link => {
+		navLinks.forEach((link) => {
 			link.addEventListener('click', (e) => {
 				const href = link.getAttribute('href');
 				if (href && href.startsWith('#') && href !== '#') {

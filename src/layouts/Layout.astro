@@ -1,13 +1,34 @@
 ---
-import "../styles/global.css";
+import '../styles/global.css';
+import ConsentManager from '../components/ConsentManager';
+import GoogleAnalytics from '../components/GoogleAnalytics';
+import LanguageSync from '../components/LanguageSync';
+import { languages } from '../i18n/config';
+
+// Supports weights 300-700
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+
+// Supports weights 400-800
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import '@fontsource/poppins/800.css';
 
 interface Props {
 	title: string;
 	description: string;
 	lang?: string;
+	keywords?: string;
 }
 
-const { title, description, lang = "es" } = Astro.props;
+const { title, description, lang = 'es', keywords } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -15,11 +36,11 @@ const { title, description, lang = "es" } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
+		{keywords && <meta name="keywords" content={keywords} />}
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 
-		<!-- Prevent FOUC by hiding body until translations are applied -->
 		<style>
 			html.loading-i18n body {
 				opacity: 0;
@@ -30,13 +51,10 @@ const { title, description, lang = "es" } = Astro.props;
 			}
 		</style>
 
-		<!-- Early language detection - runs before page render to prevent FOUC -->
 		<script is:inline>
-			(function() {
-				// Add loading class to html element
+			(function () {
 				document.documentElement.classList.add('loading-i18n');
 
-				// Get stored language from localStorage
 				function getStoredLanguage() {
 					try {
 						const stored = localStorage.getItem('language');
@@ -49,14 +67,12 @@ const { title, description, lang = "es" } = Astro.props;
 					return null;
 				}
 
-				// Get browser language
 				function getBrowserLanguage() {
 					const browserLang = navigator.language.split('-')[0];
 					const supportedLangs = ['es', 'en', 'pt', 'fr', 'it'];
 					return supportedLangs.includes(browserLang) ? browserLang : 'es';
 				}
 
-				// Save language to localStorage
 				function saveLanguage(lang) {
 					try {
 						localStorage.setItem('language', lang);
@@ -65,43 +81,46 @@ const { title, description, lang = "es" } = Astro.props;
 					}
 				}
 
-				// Initialize language with proper flow:
-				// 1. Check localStorage
-				// 2. If not found, use browser language and save it
-				// 3. Use that language for the app
 				let currentLang = getStoredLanguage();
 
 				if (!currentLang) {
-					// No stored language, use browser preference and save it
 					currentLang = getBrowserLanguage();
 					saveLanguage(currentLang);
 				}
 
-				// Set HTML lang attribute immediately
 				document.documentElement.lang = currentLang;
-
-				// Store in global variable for language store initialization
 				window.__INITIAL_LANGUAGE__ = currentLang;
 			})();
 		</script>
 
-		<!-- SEO Meta Tags -->
+		{
+			Object.keys(languages).map((l) => (
+				<link rel="alternate" hreflang={l} href={new URL(`/${l === 'es' ? '' : l}`, Astro.site)} />
+			))
+		}
+		<link rel="alternate" hreflang="x-default" href={Astro.site} />
+
 		<meta name="robots" content="index, follow" />
-		<meta name="author" content="Residence Care" />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta name="author" content="Residencia Nueva Edad" />
+		<meta name="copyright" content="Residencia Nueva Edad" />
+		<meta name="application-name" content={title} />
+
+		<!-- Open Graph -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:image" content={new URL('/og-image.jpg', Astro.url)} />
+		<meta property="og:site_name" content="Residencia Nueva Edad" />
+		<meta property="og:locale" content={lang} />
+
+		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-
-		<!-- Preconnect to Google Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
+		<meta name="twitter:image" content={new URL('/og-image.jpg', Astro.url)} />
 
 		<!-- Load i18n client script early with defer -->
 		<script>
@@ -110,7 +129,10 @@ const { title, description, lang = "es" } = Astro.props;
 
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class="w-full overflow-x-hidden">
 		<slot />
+		<LanguageSync client:only="react" />
+		<ConsentManager client:only="react" />
+		<GoogleAnalytics client:only="react" />
 	</body>
 </html>

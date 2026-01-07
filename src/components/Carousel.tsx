@@ -26,12 +26,12 @@ export default function Carousel({ autoPlay = true, interval = 5000 }: CarouselP
 	const items: CarouselItem[] = testimonials.map((testimonial) => ({
 		id: testimonial.id,
 		content: (
-			<div className="bg-white dark:bg-neutral-800 p-8 md:p-12 rounded-2xl shadow-lg min-h-[300px] flex flex-col justify-center">
+			<div className="bg-white dark:bg-neutral-800 p-8 md:p-12 rounded-2xl shadow-lg flex flex-col justify-center h-full">
 				<div className="flex flex-col md:flex-row gap-6 items-center">
 					<img
 						src={testimonial.image}
 						alt={t(testimonial.name as any)}
-						className="w-24 h-24 rounded-full object-cover shadow-md"
+						className="w-24 h-24 rounded-full object-cover shadow-md pointer-events-none"
 					/>
 					<div className="flex-1 text-center md:text-left">
 						<p className="text-lg md:text-xl text-neutral-700 dark:text-neutral-300 mb-4 italic">
@@ -101,17 +101,15 @@ export default function Carousel({ autoPlay = true, interval = 5000 }: CarouselP
 	}
 
 	return (
-		<div className="relative w-full min-h-[300px]">
+		<div className="w-full">
 			{/* Slides */}
-			<div className="relative w-full">
+			<div className="relative w-full grid grid-cols-1">
 				{items.map((item, index) => (
 					<div
 						key={item.id}
-						className={`absolute inset-0 transition-all duration-500 ease-in-out ${index === currentIndex
-								? 'opacity-100 translate-x-0 z-10'
-								: index < currentIndex
-									? 'opacity-0 -translate-x-full z-0'
-									: 'opacity-0 translate-x-full z-0'
+						className={`col-start-1 row-start-1 transition-all duration-500 ease-in-out ${index === currentIndex
+							? 'opacity-100 z-10 translate-x-0'
+							: 'opacity-0 z-0 pointer-events-none translate-x-8'
 							}`}
 					>
 						{item.content}
@@ -121,14 +119,14 @@ export default function Carousel({ autoPlay = true, interval = 5000 }: CarouselP
 
 			{/* Dots Indicator */}
 			{items.length > 1 && (
-				<div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+				<div className="flex justify-center gap-2 mt-6">
 					{items.map((_, index) => (
 						<button
 							key={index}
 							onClick={() => goToSlide(index)}
 							className={`h-3 rounded-full transition-all ${index === currentIndex
-									? 'bg-primary-500 w-8'
-									: 'bg-neutral-400 dark:bg-neutral-500 w-3 hover:bg-neutral-500 dark:hover:bg-neutral-400'
+								? 'bg-primary-500 w-8'
+								: 'bg-neutral-300 dark:bg-neutral-600 w-3 hover:bg-neutral-400 dark:hover:bg-neutral-500'
 								}`}
 							aria-label={`Go to slide ${index + 1}`}
 						/>
